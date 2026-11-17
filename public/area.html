@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área de atuação | Maimone & Associados</title>
+  <meta name="description" content="Áreas de atuação do Maimone & Associados.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       1. PALETA E TOKENS (mesma paleta da home)
+       ============================================================ */
+    :root {
+      --primary: #0643C2;
+      --primary-dark: #042D85;
+      --accent: #55B9EA;
+      --ink: #0B1A33;
+      --muted: #5B6B82;
+      --bg: #FFFFFF;
+      --bg-soft: #F4F7FC;
+      --line: #E3E9F3;
+      --radius: 14px;
+      --nav-h: 76px;
+      --font: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    /* ============================================================
+       2. BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--ink); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; background: none; border: none; color: inherit; }
+    a { color: inherit; }
+    section[id] { scroll-margin-top: var(--nav-h); }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 112px 0; }
+    @media (max-width: 900px) { section { padding: 80px 0; } }
+
+    .eyebrow {
+      display: inline-block; margin-bottom: 14px;
+      font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--primary);
+    }
+    .eyebrow.light { color: var(--accent); }
+    h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.15; font-weight: 600; letter-spacing: -.01em; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 28px; border-radius: 999px; border: 1.5px solid transparent;
+      font-weight: 600; font-size: 16px; text-decoration: none;
+      transition: background .3s, color .3s, border-color .3s, transform .3s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-light { background: #fff; color: var(--primary-dark); }
+    .btn-light:hover { background: var(--accent); color: var(--primary-dark); }
+    .btn-lg { padding: 18px 40px; font-size: 17px; }
+
+    /* ============================================================
+       3. NAVBAR (sempre sólida nesta página)
+       ============================================================ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 0 var(--line);
+      color: var(--ink);
+    }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+    .brand { display: flex; align-items: center; }
+    #logo { display: flex; align-items: center; }
+    .logo-stack {
+      position: relative; display: block;
+      width: 223px; height: 40px;
+    }
+    .logo-stack img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: contain;
+    }
+    .logo-top { opacity: 0; }
+    .logo-scrolled { opacity: 1; }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; font-size: 16px; font-weight: 600; }
+    .nav-links a { text-decoration: none; position: relative; padding: 6px 0; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+      background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .35s;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .menu-toggle { display: none; width: 44px; height: 44px; position: relative; }
+    .menu-toggle span {
+      position: absolute; left: 10px; right: 10px; height: 2px; background: currentColor;
+      transition: transform .3s, opacity .3s;
+    }
+    .menu-toggle span:nth-child(1) { top: 15px; }
+    .menu-toggle span:nth-child(2) { top: 22px; }
+    .menu-toggle span:nth-child(3) { top: 29px; }
+    .nav.menu-open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+    .nav.menu-open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0;
+        background: #fff; color: var(--ink); padding: 8px 24px 20px;
+        box-shadow: 0 16px 30px -20px rgba(11, 26, 51, .25);
+        display: none;
+      }
+      .nav.menu-open .nav-links { display: flex; }
+      .nav-links li { border-bottom: 1px solid var(--line); }
+      .nav-links a { display: block; padding: 16px 0; }
+      .nav-links a::after { display: none; }
+    }
+
+    /* ============================================================
+       4. ÁREA: DISSERTAÇÃO
+       Esquerda (2/5): eyebrow, título, descrição e imagem reservada.
+       Direita (3/5): texto dissertativo.
+       A coluna da esquerda começa na mesma linha do texto da direita.
+       ============================================================ */
+    .area-intro { padding: calc(var(--nav-h) + 72px) 0 112px; }
+    .area-grid {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .area-side { display: flex; flex-direction: column; }
+    .area-side .eyebrow { margin-bottom: 14px; }
+    .area-title {
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.15; font-weight: 600; letter-spacing: -.01em;
+      color: var(--primary-dark);
+      margin: 0;
+    }
+    .area-summary {
+      margin-top: 20px;
+      font-size: 19px; line-height: 1.6; font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* Imagem reservada: troque area.image no objeto AREAS */
+    .area-image {
+      margin-top: 32px;
+      width: 100%; aspect-ratio: 8 / 9;
+      border-radius: var(--radius); overflow: hidden;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #2B7FD6 100%);
+    }
+    .area-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    .area-text p {
+      font-size: 18px; line-height: 1.75; color: var(--muted);
+      margin: 0 0 20px;
+    }
+    .area-text p:last-child { margin-bottom: 0; }
+
+    @media (max-width: 900px) {
+      .area-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* ============================================================
+       5. CONVERSÃO (CTA + modal de formulário)
+       ============================================================ */
+    .cta {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: #fff; text-align: center;
+    }
+    .cta h2 { color: #fff; max-width: 720px; margin: 0 auto; }
+    .cta p { color: rgba(255, 255, 255, .85); font-size: 18px; max-width: 560px; margin: 18px auto 40px; }
+
+    .modal {
+      position: fixed; inset: 0; z-index: 200;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(11, 26, 51, .6); backdrop-filter: blur(4px); }
+    .modal-card {
+      position: relative; width: 100%; max-width: 520px; max-height: 92vh; overflow: auto;
+      background: #fff; color: var(--ink); border-radius: 18px; padding: 40px;
+      animation: pop .35s cubic-bezier(.2, .7, .2, 1);
+    }
+    @keyframes pop { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: none; } }
+    .modal-close {
+      position: absolute; top: 14px; right: 16px; font-size: 28px; line-height: 1;
+      width: 40px; height: 40px; border-radius: 50%; color: var(--muted);
+    }
+    .modal-close:hover { background: var(--bg-soft); color: var(--ink); }
+    .modal-card h3 { font-size: 26px; font-weight: 600; color: var(--primary-dark); margin-bottom: 8px; }
+    .modal-card > p { color: var(--muted); margin-bottom: 24px; font-size: 16px; }
+
+    .form { display: grid; gap: 16px; }
+    .form label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
+    .form input, .form select, .form textarea {
+      width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
+      font-weight: 400; font-size: 16px; background: #fff; color: var(--ink);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .form input:focus, .form select:focus, .form textarea:focus {
+      outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(6, 67, 194, .12);
+    }
+    .form textarea { resize: vertical; min-height: 96px; }
+    .form .consent { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: 14px; color: var(--muted); }
+    .form .consent input { width: 18px; height: 18px; margin-top: 3px; flex: none; accent-color: var(--primary); }
+    .form .btn { width: 100%; margin-top: 4px; }
+    .form-status { min-height: 24px; font-size: 15px; color: var(--primary); }
+
+    /* ============================================================
+       6. RODAPÉ
+       ============================================================ */
+    .footer {
+      background: var(--primary-dark);
+      color: rgba(255, 255, 255, .8);
+      padding: 72px 0 0;
+      font-size: 15px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .footer-brand { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 40px; }
+    .footer h4 { color: #fff; font-size: 13px; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer p + p { margin-top: 6px; }
+    .footer a { text-decoration: none; transition: color .2s; }
+    .footer a:hover { color: var(--accent); }
+    .socials { list-style: none; display: grid; gap: 8px; }
+    .footer-bottom {
+      margin-top: 56px; padding: 24px 0; border-top: 1px solid rgba(255, 255, 255, .12);
+      font-size: 14px; color: rgba(255, 255, 255, .6); text-align: center;
+    }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr; gap: 36px; } }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="maimone-home.html" class="brand" aria-label="Início">
+        <span id="logo"></span>
+      </a>
+
+      <nav aria-label="Navegação principal">
+        <ul class="nav-links">
+          <li><a href="maimone-home.html#quem-somos">Quem Somos</a></li>
+          <li><a href="maimone-home.html#areas">Áreas de Atuação</a></li>
+          <li><a href="maimone-home.html#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         DISSERTAÇÃO DA ÁREA
+         Esquerda: eyebrow, título, descrição e imagem reservada.
+         Direita: texto dissertativo.
+         Os dados vêm do objeto AREAS no bloco <script>.
+         ============================================================ -->
+    <section class="area-intro">
+      <div class="container area-grid">
+        <div class="area-side">
+          <span class="eyebrow">Área de atuação</span>
+          <h1 class="area-title" id="area-title"></h1>
+          <p class="area-summary" id="area-summary"></p>
+          <div class="area-image" id="area-image"></div>
+        </div>
+        <div class="area-text" id="area-text"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONVERSÃO (igual à home)
+         ============================================================ -->
+    <section id="contato" class="cta">
+      <div class="container">
+        <span class="eyebrow light">Fale com a gente</span>
+        <h2>Sua questão jurídica merece atenção especializada</h2>
+        <p>Conte o seu caso em poucas linhas. Um especialista retornará o contato em breve.</p>
+        <button class="btn btn-light btn-lg" id="open-modal" type="button" aria-haspopup="dialog">
+          Falar com Especialista
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       MODAL DO FORMULÁRIO DE LEADS
+       ============================================================ -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" type="button" data-close aria-label="Fechar">&times;</button>
+      <h3 id="modal-title">Falar com especialista</h3>
+      <p>Preencha os dados abaixo. Retornaremos pelo canal de sua preferência.</p>
+
+      <form class="form" id="lead-form">
+        <label>Nome
+          <input name="name" required autocomplete="name">
+        </label>
+        <label>E-mail
+          <input type="email" name="email" required autocomplete="email">
+        </label>
+        <label>Telefone / WhatsApp
+          <input type="tel" name="phone" autocomplete="tel">
+        </label>
+        <label>Área de interesse
+          <select name="area" id="area-select"></select>
+        </label>
+        <label>Mensagem
+          <textarea name="message" rows="4"></textarea>
+        </label>
+        <label class="consent">
+          <input type="checkbox" name="consent" required>
+          Autorizo o tratamento dos meus dados pessoais para contato, conforme a LGPD.
+        </label>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       RODAPÉ
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-brand" id="f-name"></p>
+      <div class="footer-grid">
+        <div>
+          <h4>Endereço</h4>
+          <p id="f-address"></p>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <p><a href="#" id="f-email"></a></p>
+          <p><a href="#" id="f-phone"></a></p>
+        </div>
+        <div>
+          <h4>Redes sociais</h4>
+          <ul class="socials" id="f-socials"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      &copy; <span id="year"></span> Maimone &amp; Associados. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================================
+       CONFIGURAÇÃO
+       ============================================================ */
+    const SITE = {
+      firmName: "Maimone & Associados",
+
+      // LOGOTIPO da navbar: mesmos arquivos usados na home
+      logoUrl: "/assets/logo-branco-e-azul-bebe-com-fundo-transparente.png",
+      logoScrolledUrl: "/assets/logo-azul-e-azul-bebe-com-fundo-transparente.png",
+
+      contact: {
+        address: "Endereço completo do escritório, número, bairro, cidade/UF e CEP",
+        email: "contato@seudominio.com.br",
+        phone: "(00) 0000-0000",
+        socials: [
+          { name: "LinkedIn", url: "https://www.linkedin.com/" },
+          { name: "Instagram", url: "https://www.instagram.com/" }
+        ]
+      },
+
+      // FORMULÁRIO: URL do seu backend/CRM. Vazio = somente demonstração.
+      leadEndpoint: ""
+    };
+
+    /* ============================================================
+       ÁREAS
+       slug: deve ser igual ao data-slug do botão na home.
+       title: título da área.
+       summary: descrição curta (a mesma do card da home).
+       image: URL da imagem reservada (ex.: "/assets/area-tributario.jpg"). Vazio = gradiente da marca.
+       paragraphs: texto dissertativo, um item por parágrafo.
+       ============================================================ */
+    const AREAS = [
+      {
+        slug: "blockchain",
+        title: "Regulatório de Web3 e Criptoativos",
+        summary: "Consultoria, diagnóstico e engenharia relacionados a regulação dentro da infraestrutura tecnológica.",
+        image: "",
+        paragraphs: [
+          "A evolução acelerada do ecossistema Web3 traz oportunidades inéditas em que a regulação repercute nas linhas de código e na arquitetura de software, por isso exige um conhecimento raro que o Maimone & Associados possui em conjugar direito com programação, permitindo que atuemos como Legal Engineering confeccionando infraestruturas tecnológicas ou efetivando diagnósticos dentro de aplicações para avaliar a responsabilidade civil e necessidade de ajustes.",
+          "Avaliamos a natureza jurídica dos tokens (utility tokens, tokens de pagamento, NFTs, dentre outros) através do código no smart contract, além de revisar regras de lock-up, automação de vesting e parâmetros codificados mitigando riscos de conformidade e valores mobiliários.",
+          "Constituímos PSAVs, dando enquadramento jurídico à atividade, desenhando o formato para compliance, realizando auditoria para certificação e formalizando os termos e condições da plataforma para seu melhor desempenho.",
+          "Orientamos investidores sobre como alocar e realocar seus ativos em PSAVs através dos riscos regulatórios com base no volume de movimentação e custódia dentro dos termos e condições de uso da plataforma.",
+          "Usamos blockchain com ferramentas que dão confiança no registro de cada etapa em operação para fazer rastreio e auditoria de prova de reserva de lastro quando envolve RWA, principalmente se forem ativos físicos",
+          "Prestamos assessoria tributária para ativos virtuais, preventivamente antes do fato gerador, adentrando reportes à receita, e por fim no recolhimento do tributo avaliando o que caracteriza dedução ou exclusão da base de cálculo. Esse conhecimento também nos permite pedir restituição ou compensação de recolhimentos indevidos ou a maior",
+          "Estruturamos modelos criativos e descentralizados através do nosso conhecimento de programação, para que as linhas de código estejam revestidas da regulação, ou admita dispensa do uso de entidades reguladas, elaborando ainda arquiteturas de negócios jurídica e tecnologicamente que possam evitar o atrito na operação.",
+          "Atuamos na representação contenciosa e administrativa voltada à recuperação de ativos bloqueados em corretoras ou junto às empresas dos protocolos emissores de ativos virtuais subtraídos em fraudes e scams.",
+          "O ecossistema de startups de tecnologia e inovação exige uma estruturação jurídica ágil, capaz de acompanhar o ritmo acelerado de crescimento sem comprometer a proteção do negócio. A atuação nessa área consiste em assessorar empresas de base tecnológica em todas as fases de sua jornada, desde a constituição societária e proteção de propriedade intelectual até a elaboração de contratos estratégicos de software e planos de vesting para retenção de talentos.",
+          "Também conduzimos rodadas de captação de recursos e operações de Venture Capital, investidor-anjo e captação por crowdfunding, estruturando instrumentos de investimento, SAFEs (Simple Agreement for Future Equity) e acordos de sócios para equilibrar a governança entre fundadores e investidores.",
+          "Além disso, atuamos na modelagem regulatória de veículos de investimento modernos, incluindo fundos estruturados com exposição direta ou indireta a ativos virtuais e concentração de cotas permitida."
+        ]
+      },
+      {
+        slug: "empresarial",
+        title: "Empresarial e Societário",
+        summary: "Constituição, reorganização societária, acordos de sócios e governança corporativa.",
+        image: "",
+        paragraphs: [
+          "O mercado de capitais e as estruturas de investimento exigem uma organização societária que acompanhe a complexidade regulatória sem perder de vista a realidade do negócio, da constituição da sociedade à sua eventual reorganização, oferta pública ou disputa, sempre em cumprimento com as normas ISO de padrão internacional.",
+          "Assessoramos a constituição, a governança e a manutenção de sociedades anônimas, limitadas, SPEs e holdings, elaborando atos constitutivos, acordos de acionistas e de quotistas, NDAs, MOUs, dentre outros. Confeccionamos as regras de voto, preferência, bloqueio, saída e resolução de impasses (deadlock), bem como classes de ações, voto plural, instrumentos conversíveis, planos de opções e políticas de partes relacionadas, conduzindo assembleias, reuniões de conselho e de diretoria e a atuação perante órgãos reguladores.",
+          "Atuamos em ofertas públicas de valores mobiliários, como ações, debêntures, notas comerciais, e certificados de recebíveis, conduzindo os documentos societários, contratuais e regulatórios da operação, como atas de assembleias, escritura de emissão e termo de securitização, contratos de distribuição e de garantias, pedido de registro, prospecto, lâmina, aviso ao mercado, anúncios de início e encerramento, comunicados e fatos relevantes.",
+          "Acompanhamos a execução da oferta de valores mobiliários desde a origem, orientando como proceder em ofertas privadas contra oferta irregular, examinamndo criteriosamente a taxonomia do Howey Test para afastamento de requisito e recomendando uso de canais de divulgação e perfis de potenciais investidores, e em ofertas públicas acompanhamos a oferta pública em mercado de bolsa e balcão, em setup inicial e de manutenção das instituições contratadas, distribuição de proventos, alterações societárias, direito de subscrição, comunicação de gravame e ainda, assessorando o agente fiduciário a auditar os ativos dos investidores em troca de titularidade, prova de lastro, evitar venda dupla ou venda de ativos em gravame, pontualidade dos pagamentos, verificação de garantias, dentre outras atribuições",
+          "Revisamos e desenhamos as cláusulas de proteção e de saída do investidor e do controlador, como poison pill, tag along, drag along, put/call options, dentre outras, e definimos o instrumento adequado para cada uma delas.",
+          "Conduzimos operações de F&A e reestruturações societárias, desde a negociação dos contratos de compra e venda e de investimento até a execução de incorporações, fusões, cisões, incorporações e transformações.",
+          "Desenvolvemos plataformas por smart contracts para oferta pública de valores mobiliários tokenizados para otimização da captação de recursos, e ainda, apresentando requerimento de dispensa de requisitos de agentes obrigatórios do ecossistema, como custodiante, clearing, securitizadora e escrituradora.",
+          "Desenhamos arquiteturas de negócios, com holding, subsidiárias, filiais, e escritórios administrativos, para melhor desempenho da atividade.",
+          "Estruturamos fundos de investimento, elaborando regulamentos, anexos e apêndices, desenhamos classes e subclasses de cotas, definimos políticas de investimento, regras de governança e a relação entre gestor, administrador, custodiante e demais prestadores de serviço, e conduzimos o registro e o cumprimento das obrigações perante a CVM. Assessoramos ainda gestores e investidores nas negociações de entrada e saída, em acordos de cotistas e em conflitos de interesse.",
+          "Atuamos no contencioso societário, judicial e arbitral, em ações de responsabilidade civil de administradores, de abuso de poder de controle, de violação de deveres fiduciários, de anulação de assembleias, de dissolução parcial, de apuração de haveres, dentre outras.",
+          "No âmbito administrativo, representamos administradores, controladores, companhias e intermediários em processos administrativos sancionadores da CVM e em MRP (Mecanismo de Ressarcimento de Prejuízo), para casos de propositura ou defesa em demandas de oferta irregular, manipulação de mercado, falhas na custódia ou liquidação, denter outras."
+        ]
+      },
+      {
+        slug: "planejamento-patrimonial",
+        title: "Planejamento Patrimonial",
+        summary: "Classificação de riscos para o patrimônio empresarial e familiar através do perfil do cliente.",
+        image: "",
+        paragraphs: [
+          "É sempre um desafio para o investidor gerir bem seus negócios e, simultaneamente, garantir a paz para a família. O planejamento patrimonial exige olhar para mais de uma jurisdição ao mesmo tempo: onde a pessoa vive, onde a empresa opera, onde os bens estão e para onde o capital precisa circular. Nosso trabalho é construir a arquitetura jurídica, societária e tributária que organiza essas variáveis antes que os fatos ocorram.",
+          "A conjugação de ramos do direito é fundamental para avaliar os rumos que devem ser conduzidos no nosso labor, por envolver direito internacional, empresarial, tributário, de família, de mercado de capitais e muitos outros, tornando o cenário complexo que demanda uma densa consulta dos desdobramentos jurídicos e financeiros em cada jurisdição para atingir um denominador comum.",
+          "Analisamos residência fiscal, cidadania e domicílio, inclusive a mudança de residência para outro país e a obtenção de uma segunda cidadania, medindo os efeitos de cada escolha sobre a tributação da renda, do patrimônio e da herança, e sobre as obrigações de declaração que acompanham essas decisões. Em paralelo, definimos onde deve ficar o patrimônio da pessoa física e o da pessoa jurídica, avaliando o que permanece no Brasil, o que pode ser mantido no exterior e por qual veículo, à luz dos tratados internacionais e da realidade econômica de cada estrutura.",
+          "A atividade empresarial entra nesse desenho como parte do patrimônio. Estruturamos holdings e a organização societária do grupo, inclusive em trusts e offshores, separando ativos de risco de ativos que precisam ser protegidos, operações cambiais para investimentos no exterior, pagamento de funcionários, dação em garantia, operações de crédito, e definimos a forma como os resultados circulam entre as empresas e chegam aos sócios, sempre de modo compatível com a operação real do negócio.",
+          "A sucessão recebe tratamento próprio. Planejamos a transmissão do patrimônio em vida e após a morte, por meio de holdings familiares e de instrumentos que evitam conflitos entre herdeiros e a interrupção da atividade empresarial, otimizando as regras do país de residência com as dos locais onde os bens se encontram, realizando buscas e colações para repatriação de bens, usufruto de aluguéis, dividendos, juros e demais rendimentos, inclusive partilha de distintos beneficiários finais, bem como de suas prestações de contas, e a melhor estratégia para sucessão ou eventual liquidação dos bens.",
+          "Na alocação e realocação dos recursos, estruturamos investimentos em mercado de capitais e em bens in natura, como imóveis, terras, participações societárias, obras de arte e ativos virtuais, escolhendo o veículo e a jurisdição conforme a ótica do investidor, a liquidez desejada e o tratamento tributário de cada classe de ativo.",
+          "No campo tributário, atuamos com estratégia de elisão fiscal. Antes do fato gerador, comparamos regimes regulatórios, tratados de bitributação, momentos de realização de lucro, e formas de remuneração e de capitalização, identificando o que a lei permite para reduzir a carga tributária e evitar atrito fiscal, dando maior fluidez ao patrimônio e evitando que fique travado por burocracias excessivas e taxas, com o menor volume de despesas possível, de modo legítimo e com propósito negocial comprovável. Também acompanhamos o cumprimento das obrigações perante o fisco e a recuperação de valores recolhidos indevidamente ou a maior, na jurisdição do domicílio do cliente.",
+          "Estruturamos a entrada e a saída de recursos entre distintas jurisdições buscando o melhor resultado líquido ao cliente, comparando custos cambiais, tributos incidentes, tratados e alternativas à remessa direta, inclusive soluções que preservam o rendimento do investimento enquanto o capital é utilizado em novas oportunidades. A tecnologia blockchain e a tokenização permitem, em muitos casos, reduzir intermediários, custos e burocracia, desde que a operação esteja corretamente enquadrada nas normas aplicáveis.",
+          "Cada estrutura parte de um diagnóstico do patrimônio, dos objetivos e dos riscos do cliente, e é documentada para resistir a eventual fiscalização e taxação. O planejamento patrimonial é um trabalho contínuo, que acompanha as mudanças na lei, na vida do cliente e nos seus negócios."
+        ]
+      },
+      {
+        slug: "digital",
+        title: "Direito Digital e Inteligência Artificial",
+        summary: "Estruturação de processos e decisões no negócio com segurança cibernética no armazenamento de dados.",
+        image: "",
+        paragraphs: [
+          "O avanço da inteligência artificial e a digitalização dos negócios trazem ganhos de eficiência, mas também expõem as empresas a riscos jurídicos novos: dados pessoais que escapam do controle, segredos industriais inseridos em ferramentas de terceiros e decisões automatizadas sem governança. Nossa atuação une o direito digital e o conhecimento de programação e de engenharia de software, para que a tecnologia seja adotada com segurança jurídica desde a concepção.",
+          "Na proteção de dados pessoais, criamos programas de conformidade com a LGPD, mapeando o ciclo de vida das informações na coleta, armazenamento, compartilhamento e descarte, definindo a base legal adequada a cada tratamento, entre elas consentimento, execução de contrato, legítimo interesse e obrigação legal. Elaboramos políticas de privacidade, registros do tratamento de dados, relatórios de impacto, mensuração de risco de incidentes e contratos com operadores e fornecedores, delimitando as responsabilidades de controlador e operador. Atuamos na nomeação e estruturação do encarregado (DPO), no atendimento aos direitos dos titulares, nas transferências internacionais de dados, com cláusulas-padrão e relacionamento com autoridades.",
+          "Cuidamos de políticas internas de uso e avaliamos fornecedores e seus termos na injeção e retenção de prompts, uso de dados para treinamento, localização de servidores e subcontratados, definindo o que pode ou não ser inserido em cada plataforma. A proteção do segredo industrial depende da empresa tratamento adequado, de modo que a legislação protege contra a divulgação e o uso indevidos de informações confidenciais e pune a concorrência desleal, mas exige medidas razoáveis de sigilo, como cláusulas de confidencialidade e não concorrência, controle de quem teve contato com a informação.",
+          "Revisamos ainda contratos de licenciamento e de desenvolvimento de soluções de IA, tratando da titularidade dos resultados gerados e da propriedade intelectual sobre software, modelos e bases de dados, do uso dos dados de entrada para treinamento, da responsabilidade por erros, vieses e alucinações e medidas de contenção com dever de informar, e do direito do titular de solicitar a revisão de decisões tomadas exclusivamente de forma automatizada.",
+          "Participamos do desenho técnico dos sistemas junto às equipes de tecnologia para que a segurança jurídica comece na arquitetura tecnológica, propondo a conteinerização e a segregação lógica dos dados em ambientes isolados, análise de ferramentas usadas pela equipe de T.I. para saber se atende aos fins da regulação, de modo que um incidente em um módulo não alcance os demais; o acesso por função; a minimização da coleta; a pseudonimização e a anonimização quando a finalidade permitir; e a separação entre dados pessoais e dados utilizados pelos modelos. Essas escolhas técnicas traduzem, em código, princípios que a LGPD exige, como finalidade, necessidade, segurança e prevenção, e são a forma mais eficaz de reduzir o risco na origem, e não apenas tratá-lo depois do incidente.",
+          "Em soluções de IA, isso inclui desenhar arquiteturas que mantêm informações sensíveis fora do alcance do provedor do modelo e analisar riscos específicos, como vazamento por prompt, injeção de comandos e exposição de bases de conhecimento internas, e sobre rodar aplicações na rede mundial de computadores ou localmente e quais os melhores programas a serem implementados no caso a caso.",
+          "Assessoramos o agente de tratamento a adotar medidas técnicas e administrativas aptas a proteger os dados, e a adequação dessas medidas pesa na avaliação de responsabilidade e na dosimetria de sanções. Avaliamos com as equipes técnicas a proteção dos dados em repouso e em trânsito, a gestão de chaves, a segmentação de redes e os registros de acesso por logs, e documentamos tudo com base em referenciais padronizados, constituindo a evidência de conformidade perante a ANPD, o Judiciário, clientes e parceiros, inclusive se por algum deles for requisitado.",
+          "Preparamos as empresas com planos de resposta a incidentes coordenando a contenção, avaliação do risco ou dano relevante aos titulares, com comunicação à ANPD e às pessoas afetadas dentro dos prazos, preservação de evidências e produção de provas, e definição da estratégia de defesa e de eventual ressarcimento, inclusive em treinamentos e simulações, na responsabilização de quem acessou ou divulgou indevidamente as informações, identificando endereço de IP, ID de aparelho portátil e geolocalização",
+          "No contencioso e no consultivo, atuamos em ações de responsabilidade civil por vazamento de dados, em violações de segredo de negócio, concorrência desleal e uso indevido de dados, e em processos administrativos sancionadores da ANPD, cujas penalidades vão da advertência e da publicização da infração a multas, e ao bloqueio ou à eliminação dos dados. Acompanhamos também a regulação de IA no Brasil e no exterior, e as recomendações internacionais, orientando as empresas a se adequarem antes que se tornem obrigações.",
+          "Cada projeto parte de um diagnóstico do ambiente tecnológico, dos dados tratados e dos riscos do negócio, com soluções documentadas e ajustadas à realidade operacional do cliente no direito digital como um trabalho contínuo, que acompanha a evolução da tecnologia e da lei."
+        ]
+      },
+      {
+        slug: "agronegocio",
+        title: "Agronegócio e Produção Rural",
+        summary: "Contratos rurais, crédito agrário, regularização de propriedades e operações do agronegócio.",
+        image: "",
+        paragraphs: [
+          "A produção rural brasileira combina produção em escala, crédito sofisticado e exigências ambientais crescentes, e para isso assessoramos produtores, cooperativas, agroindústrias, tradings, armazéns, fornecedores de insumos e investidores, no rastreio da atividade, começando pela desobstrução, lavra, manejo, plantio, irrigação, reprodução, cria, engorda, acompanhamento, colheita, abate, acondicionamento, armazenamento, expedição e até mesmo exportação, considerando que em cada etapa pode haver financiamento.",
+          "Na operação do campo, elaboramos e revisamos contratos agrários de arrendamento, parceria e comodato rural, contratos de compra e venda de safra, venda antecipada, fornecimento de insumos, armazenagem e integração com a agroindústria. Tratamos também da proteção de cultivares e de tecnologias agrícolas, do seguro rural e da regularidade ambiental da propriedade com certificação, reserva legal, áreas de preservação permanente, licenciamento e outorga de uso de água, que condiciona o acesso a crédito e a mercados.",
+          "Organizamos sistemas de produção através do padrão EMBRAPA em cada etapa, com formalização de contratos de royalties de biotecnologia patenteada, obtenção de outorga para uso de recursos hídricos, de licença ambiental para instalação de infraestrutura, e de autorizações da ANAC para pulverização aérea de tratamento na terra, certificação do MAPA para construção de grandes estruturas no campo, dentre outrs requisitos.",
+          "Fazemos consultoria jurídica para uso de tecnologias, como rastreio da produção e registro em blockchain para melhor auditoria, ferramentas de prova de reserva de lastro do produto rural para garantia em penhor, uso de drones para mapeamento da lavoura com uso de dados para emissão de CRA sobre safra futura, emissão de CDA/WA em arquitetura espelhada entre Web3 e Web2 com fins obtenção de crédito para especular enquanto o produtor rural está com cotação baixa, tokenização de CPR de crédito de carbono para fracionamento e facilitação de captação de recursos, dentre outras.",
+          "Estruturamos operações com títulos de crédito no mercado de capitais com CPR, CDA/WA, CDCA, LCA, escrevendo as características na redação do título, assessorando negociações e acompanhando circulação com setup em custodiante, central depositária, liquidante, registradora, escrituradora, mediando negociação para endosso e concessão de empréstimo, apresentando requerimento de baixa, procedendo com averbação de imóvel em penhor ou propor medida caso o bem seja penhorado ou expropriado, inclusive executando os bens em garantia.",
+          "Atuamos na sofisticação financeira do agronegócio, convertendo direitos creditórios e títulos rurais em ativos negociáveis na B3, como CRA, cotas de Fiagro, FIDC-Agro e emissão de dívida. Nossa assessoria cobre todo o ciclo da operação no mercado de capitais, desde a modelagem jurídica do lastro e o registro de ofertas e fundos perante a CVM até a montagem de estratégias com hedge e derivativos agropecuários para evitar riscos cambiais e de oscilação de preços.",
+          "Auxiliamos produtores e investidores de créditos de carbono verde em projetos florestais, de preservação ambiental voluntária, de restauração, de parques fotovoltaicos em terras arrendadas, e de carbono azul em projetos de restauração hidrológica, de plantio direto de mudas, de Living Shorelines, dentre outros, nos contratos de venda e compra desses créditos, na definição da titularidade do ativo em relação à terra e a quem a explora, e na adequação ao Sistema Brasileiro de Comércio de Emissões.",
+          "Quando surgem conflitos, atuamos na renegociação de dívidas rurais, na execução e defesa em ações envolvendo títulos do agro, em disputas contratuais de safra e em procedimentos arbitrais, preservando a continuidade da atividade."
+        ]
+      },
+      {
+        slug: "bancario",
+        title: "Direito Bancário e Operações Cross-Border",
+        summary: "Contratos bancários, câmbio e remessas ao exterior e crédito em operações transfronteiriças.",
+        image: "",
+        paragraphs: [
+          "O sistema financeiro é um dos setores mais regulados da economia, e a inovação tecnológica multiplicou o número de agentes e de modelos de negócio que dependem de autorização e supervisão do Banco Central. Assessoramos instituições financeiras, fintechs, instituições de pagamento e seus clientes e parceiros, na estruturação, no funcionamento e na defesa de suas atividades.",
+          "Estruturamos operações complexas examinando a causa das empresas para auxiliar no formato mais barato e seguro, evitando que seu patrimônio fique preso em alguma instituição ou jurisdição, como ordem de pagamento em reais recebida do exterior, triangulação comercial (Back-to-Back), reinvestimento de lucros e rendimentos no exterior, dentre outras.",
+          "Atuamos na idealização da infraestrutura para fluxo de capital no negócio de uma empresa através do uso de contas de pagamento, conta de liquidação, conta Reservas Bancárias, contas e subcontas reflexas de fundos, e de suas respectivas administradoras e gestoras, contas de depósito centralizado, contas de custodiantes, contas de garantia, dentre outras, para melhor desempenho em ecossistemas do SFN e SPB.",
+          "O uso da tecnologia blockchain é nosso diferencial, sendo capazes de organizar operações de emissão de stable coins e moedas sociais, arbitragem de stable coins pela via agêntica ou por bots e transações cross-border via ZK Proof, reduzindo o atrito e sempre em conformidade com a regulação. Também tokenizamos ativos do mundo real, como CDB, letra financeira, DPGE e bonds no exterior, para captação de recursos de terceiros e destiná-los a operação de crédito com clientes e spread bancário automatizado.",
+          "As instituições de pagamento e os meios de pagamento recebem atenção própria em arranjos de pagamento, modelos de banking as a service, contas escrow em processos de arbitragem, bem como a relação contratual entre instituições, parceiros e plataformas.",
+          "No mercado de câmbio, estruturamos e regularizamos a atuação de instituições autorizadas a operar câmbio, inclusive a criação de mesas de câmbio em bancos, desenhando controles, políticas, relacionamento com contrapartes e as operações internacionais de clientes, de pagamentos, investimentos e empréstimos externos. Acompanhamos igualmente o enquadramento de ativos virtuais e stablecoins, e das prestadoras desses serviços, na regulação cambial e financeira.",
+          "Combinamos moeda, crédito, juros e balanço de pagamento em captações em moeda estrangeira, emissões de CDI, liquidações interbancárias, operações de hedge cambial, dentre outras, cuidando também de taxas pré e pós-fixadas, indexadores e correção monetária, capitalização de juros, limites e licitude dos encargos, registros e declarações perante o Banco Central, e das exigências de informação para fins prudenciais e de compliance.",
+          "Na rotina das instituições, elaboramos e revisamos contratos bancários e instrumentos de crédito e suas garantias, além de políticas de governança, gestão de riscos, operações usando contas que suportam alto volume e com partes correspondentes no exterior, segurança cibernética, orientações jurídicas para criação de IP/Porta e CIS.net, e o relacionamento com os órgãos de supervisão.",
+          "No contencioso e no administrativo, representamos instituições e clientes em processos administrativos sancionadores do Banco Central, no recurso ao CRSFN e em termos de compromisso, e em ações envolvendo contratos, tírulos encargos e fraudes, responsabilidade das instituições e liquidação extrajudicial."
+        ],
+      },
+      {
+        slug: "games",
+        title: "Games e Propriedade Intelectual",
+        summary: "Construção, registro, comercialização e monetização de games e sua relação com a comunidade de jogadores.",
+        image: "",
+        paragraphs: [
+          "A indústria de games reúne criação artística, software, comunidade e economia digital, e levanta questões jurídicas que atravessam propriedade intelectual, consumo, proteção de crianças e adolescentes, regulação financeira e tecnologia. Atuamos ao lado de estúdios, desenvolvedores independentes, publishers, plataformas, organizações de esports e investidores, e, por conhecermos programação, participamos de decisões técnicas que têm consequências jurídicas.",
+          "Na propriedade intelectual, protegemos software, engine, personagens, acessórios, arte, trilha sonora e marca, estruturamos a titularidade dos ativos entre estúdio, equipe e terceiros, revisamos licenças de engines, bibliotecas e softwares livres e tratamos do uso de IA generativa na criação de conteúdo, com seus impactos sobre autoria, direitos de imagem e voz e riscos de infração.",
+          "Nos contratos, elaboramos acordos de desenvolvimento, publicação e distribuição, cessões de direitos, contratos com plataformas e lojas, termos de uso (EULA), parcerias com estúdios e influenciadores e contratos de licenciamento de propriedade intelectual para outras mídias e produtos.",
+          "No modelo de negócio, analisamos monetização e consumo com microtransações, loot boxes, assinaturas, publicidade dentro do jogo e a fronteira entre jogo e aposta. Também cuidamos da proteção de dados, em especial a de crianças e adolescentes, e da adequação às regras sobre a oferta de jogos a esse público.",
+          "Na relação com a comunidade, estruturamos as regras de convivência e os termos de uso de jogos online, a moderação de chats e de conteúdo gerado por usuários, mods e criações da comunidade, a política de banimentos e de uso de sistemas anti-cheat, e a responsabilidade da plataforma por conteúdos e condutas de terceiros. Também orientamos sobre a titularidade e a disponibilidade de contas e bens virtuais, o reembolso e o encerramento de serviços e servidores, de modo a prevenir conflitos com jogadores e com órgãos de defesa do consumidor.",
+          "Nos esports, assessoramos contratos de jogadores e equipes, ligas, patrocínios e direitos de transmissão e de imagem junto aos clubes que detêm esses direitos para si. Estruturamos ainda captação e investimento em estúdios, rodadas, fundos e a adequação a incentivos previstos no marco legal dos games, principalmente quando se trata de startup ou sociedades ainda em fase embrionária.",
+          "Poucos setores nascem tão globais quanto o de games, e o lançamento em vários países exige adequação simultânea a regras distintas de classificação indicativa, privacidade, consumo e conteúdo, bem como a estruturação tributária e contratual da remessa de receitas e royalties entre o estúdio, os publishers e as plataformas. Atuamos também na defesa do jogo e de seu ecossistema, combatendo plágio, clones, pirataria, trapaças e softwares de modificação não autorizados, por meio de notificações, derrubada de conteúdo e medidas judiciais.",
+          "Analisamos, por exemplo, quando a venda de caixas de itens com resultado aleatório (loot boxes) se aproxima de jogo de azar ou de aposta, e quais restrições se aplicam quando o público inclui crianças e adolescentes; se a troca de itens e moedas virtuais por dinheiro, dentro ou fora da plataforma, transforma o jogo em serviço financeiro ou em arranjo de pagamento; em que medida torneios com taxa de inscrição e premiação em dinheiro se enquadram como competição de habilidade ou como aposta; e quais obrigações recaem sobre o estúdio quando mercados de terceiros negociam contas e itens do jogo.",
+          "Cada projeto parte do entendimento do jogo, do público e do modelo de receita, com soluções que acompanham o ciclo de desenvolvimento, do protótipo à operação global, especialmente quando adota Web3, com NFTs, tokens, carteiras e contratos inteligentes, ou decide adotá-los em uma versão posterior, analisamos o enquadramento de cada ativo como item de jogo, ativo virtual, meio de pagamento ou valor mobiliário.", 
+          "Desenhamos os modelos para que preservem a experiência do jogador sem desconsiderar a regulação, o que inclui a definição de direitos do detentor do item, por NFT ou não, royalties em revendas, auditoria dos contratos inteligentes, regras de atualização e de governança do protocolo, e a escolha entre manter a economia dentro do jogo ou migrá-la gradualmente para a cadeia, conforme a maturidade do projeto e as exigências de cada jurisdição.",
+          "Acompanhamos o ciclo do MVP desde o protótipo, estruturando a titularidade do código, da arte e dos dados já na primeira versão e definindo, para cada etapa do roadmap, os pontos de verificação regulatória antes de a funcionalidade chegar aos jogadores, com adequação à LGPD e atualização do aviso de privacidade com proteção à criança e adolescente, ajuste nos termos e condições e sem esvaziar bens e saldos já adquiridos pelos jogadores.",
+        ],
+      },
+      {
+        slug: "imobiliario",
+        title: "Direito Imobiliário, Posse e Propriedade",
+        summary: "Assessoria jurídica em todo o ciclo do imóvel, urbano e rural, da aquisição e regularização da propriedade à incorporação, ao financiamento, à locação e à solução de conflitos.",
+        image: "",
+        paragraphs: [
+          "Assessoramos proprietários, compradores, incorporadores, investidores, construtoras e instituições financeiras em todo o ciclo do imóvel, urbano e rural, em operações financeiras de alto valor, o que exige rigor na análise de titularidade, de registro e de risco.",
+          "Nas aquisições e alienações, conduzimos a due diligence imobiliária, analisando a matrícula, as cadeias dominiais, as certidões, os ônus e as contingências do vendedor, e elaboramos promessas de compra e venda, escrituras e demais instrumentos, acompanhando o registro, e atuando na regularização de propriedade e posse, inclusive usucapião e locação, e, em imóveis rurais, no georreferenciamento, nos registros junto ao INCRA e à Receita e na aquisição de terras por estrangeiros.",
+          "Na incorporação e no desenvolvimento imobiliário, estruturamos empreendimentos, incorporações, loteamentos, desmembramentos, condomínios e multipropriedade, o patrimônio de afetação e a relação com adquirentes, inclusive em distratos e atrasos na entrega, analisando regras de zoneamento urbano, apresentando requerimento de aprovação de projeto junto à Prefeitura, elaboração e acompanhamento de contrato de financiamento, e expedição do certificado de conclusão de construção.",
+          "No financiamento e nas garantias, desenhamos operações de crédito imobiliário, alienação fiduciária de imóveis, inclusive pela tokenização imobiliária, com a execução extrajudicial, e a captação de recursos mediante LCI e diligências e registro junto às instituições financeiras e infraestrutura de mercado para pulverização da oferta.",
+          "Atuamos em regime de ocupação e aforamento em terrenos de marinha, inclusive usucapião do domínio útil, alenação de direitos, troca de polo passivo em inscrição de dívida ativa para dar segurança jurídica ao recolhimento, cadastro administrativo junto à SPU e averbação constante da certidão de ônus reais do imóvel.",
+          "Examinamos imóveis em fase de leilão, em conformidade com as regras de leilões judiais e extrajudiciais, apurando  se houver vícios formais, evicção, nulidade no edital, na intimação do devedor ou cobrança indevida de dívidas anteriores não previstas, cabendo ajuizar desistência da arrematação, ação de imissão ou reintegração de posse, embargos de terceiro, ação anulatória, inclusive em alienação fiduciária extrajudicial, e defesa em execução fiscal de ônus anteriores à arrematação.",
+          "Nosso ofício é também sobre renovação contratual de locação, inclusive empresarial e em shopping centers, analisando requisitos, direito de retomada, revisões de contratos de locação e ações judiciais contra atos nulos de de disposição patrimonial do devedor insolvente, como cessão de ponto comercial, transferência de quotas sociais ou doações entre empresas, para recompor a garantia do crédito.",
+          "Damos orientação jurídica no tocante aos frutos dos imóveis, sejam eles naturais, industriais ou civis, na aquisição de posse ou propriedade plena, em cessão fiduciária, enfiteuse, aluguéis, usufruto, prestação de contas, e na integralização de capital social com imóveis que geram provento de qualquer natureza.",
+          "No regime das terras e imóveis rústicos, assessoramos no cumprimento da função social da propriedade na produtividade e preservação ambiental, diligenciamos na regularização fundiária e registral junto aos órgãos competentes, inclusive em retificações de assentamentos públicos, na acessão, aluvião, avulsão e demais fenômenos naturais, na aquisição por estrangeiros ou empresas com capital estrangeiro, na proteção possessória, no usucapião especial rural e sucessão patrimonial familiar"
+        ],
+      }
+    ];
+
+    /* ============================================================
+       UTILITÁRIOS
+       ============================================================ */
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+
+    // Área pedida pela URL (?area=slug). Se não existir, mostra a primeira.
+    function slugify(s) {
+      return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+        .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    }
+
+    function currentArea() {
+      const i = parseInt(new URLSearchParams(window.location.search).get("area"), 10);
+      return AREAS[Number.isInteger(i) && AREAS[i] ? i : 0];
+    }
+
+    /* ============================================================
+       RENDERIZAÇÃO
+       ============================================================ */
+    function renderBrand() {
+      $("#logo").innerHTML = `
+        <span class="logo-stack">
+          <img class="logo-top" src="${SITE.logoUrl}" alt="${SITE.firmName}">
+          <img class="logo-scrolled" src="${SITE.logoScrolledUrl || SITE.logoUrl}" alt="">
+        </span>`;
+    }
+
+    function renderArea(area) {
+      document.title = `${area.title} | Maimone & Associados`;
+      $("#area-title").textContent = area.title;
+      $("#area-summary").textContent = area.summary;
+      $("#area-image").innerHTML = area.image
+        ? `<img src="${area.image}" alt="${area.title}">`
+        : "";
+      $("#area-text").innerHTML = area.paragraphs.map(p => `<p>${p}</p>`).join("");
+      $("#area-select").innerHTML =
+        `<option value="">Selecione uma área</option>` +
+        AREAS.map(a => `<option value="${a.title}" ${a.slug === area.slug ? "selected" : ""}>${a.title}</option>`).join("");
+    }
+
+    function renderFooter() {
+      $("#f-name").textContent = SITE.firmName;
+      $("#f-address").textContent = SITE.contact.address;
+      $("#f-email").textContent = SITE.contact.email;
+      $("#f-email").href = `mailto:${SITE.contact.email}`;
+      $("#f-phone").textContent = SITE.contact.phone;
+      $("#f-phone").href = `tel:${SITE.contact.phone.replace(/\D/g, "")}`;
+      $("#f-socials").innerHTML = SITE.contact.socials
+        .map(s => `<li><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.name}</a></li>`)
+        .join("");
+      $("#year").textContent = new Date().getFullYear();
+    }
+
+    /* ============================================================
+       MENU MOBILE
+       ============================================================ */
+    function initNav() {
+      const nav = $("#nav");
+      const toggle = $("#menu-toggle");
+      toggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("menu-open");
+        toggle.setAttribute("aria-expanded", open);
+      });
+    }
+
+    /* ============================================================
+       MODAL DE CONVERSÃO
+       ============================================================ */
+    let lastFocus = null;
+
+    function openModal(trigger = null) {
+      lastFocus = trigger || document.activeElement;
+      $("#modal").classList.add("open");
+      $("#modal").setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => $("#lead-form [name=name]").focus(), 50);
+    }
+
+    function closeModal() {
+      $("#modal").classList.remove("open");
+      $("#modal").setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastFocus) lastFocus.focus();
+    }
+
+    function initModal() {
+      $("#open-modal").addEventListener("click", e => openModal(e.currentTarget));
+
+      $("#modal").addEventListener("click", e => {
+        if (e.target.hasAttribute("data-close")) closeModal();
+      });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && $("#modal").classList.contains("open")) closeModal();
+      });
+
+      $("#lead-form").addEventListener("submit", async e => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const status = $("#form-status");
+
+        if (!form.reportValidity()) return;
+
+        const data = Object.fromEntries(new FormData(form));
+        status.textContent = "Enviando...";
+
+        try {
+          if (SITE.leadEndpoint) {
+            const res = await fetch(SITE.leadEndpoint, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error(res.statusText);
+          } else {
+            // Demonstração: remove quando SITE.leadEndpoint estiver configurado
+            await new Promise(r => setTimeout(r, 600));
+          }
+          form.reset();
+          status.textContent = "Recebemos sua mensagem. Um especialista entrará em contato em breve.";
+        } catch {
+          status.textContent = "Não foi possível enviar agora. Tente novamente em instantes.";
+        }
+      });
+    }
+
+    /* ============================================================
+       INICIALIZAÇÃO
+       ============================================================ */
+    document.addEventListener("DOMContentLoaded", () => {
+      renderBrand();
+      renderArea(currentArea());
+      renderFooter();
+      initNav();
+      initModal();
+    });
+  </script>
+</body>
+</html>

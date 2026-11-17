@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maimone & Associados | Advocacia</title>
+  <meta name="description" content="Maimone & Associados: advocacia empresarial, tributária, cível e trabalhista.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       1. PALETA E TOKENS
+       Cores extraídas dos logotipos enviados (azul #0643C2, ciano #55B9EA).
+       ============================================================ */
+    :root {
+      --primary: #0643C2;        /* azul do logotipo: cor principal */
+      --primary-dark: #042D85;   /* tom profundo: fundos e hovers */
+      --accent: #55B9EA;         /* ciano do cubo: destaque e detalhes */
+      --ink: #0B1A33;            /* texto principal */
+      --muted: #5B6B82;          /* texto secundário */
+      --bg: #FFFFFF;             /* fundo principal */
+      --bg-soft: #F4F7FC;        /* seções alternadas */
+      --line: #E3E9F3;           /* bordas sutis */
+      --radius: 14px;
+      --nav-h: 76px;
+      --font: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    /* ============================================================
+       2. BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--ink); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; background: none; border: none; color: inherit; }
+    a { color: inherit; }
+    section[id] { scroll-margin-top: var(--nav-h); }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 112px 0; }
+    @media (max-width: 900px) { section { padding: 80px 0; } }
+
+    .eyebrow {
+      display: inline-block; margin-bottom: 14px;
+      font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--primary);
+    }
+    .eyebrow.light { color: var(--accent); }
+    h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.15; font-weight: 600; letter-spacing: -.01em; }
+    .section-head { max-width: 640px; margin-bottom: 56px; }
+    .section-head p { margin-top: 16px; color: var(--muted); font-size: 18px; }
+
+    /* Botões */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 28px; border-radius: 999px; border: 1.5px solid transparent;
+      font-weight: 600; font-size: 16px; text-decoration: none;
+      transition: background .3s, color .3s, border-color .3s, transform .3s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-light { background: #fff; color: var(--primary-dark); }
+    .btn-light:hover { background: var(--accent); color: var(--primary-dark); }
+    .btn-lg { padding: 18px 40px; font-size: 17px; }
+
+    /* ============================================================
+       3. NAVBAR (fixa, transparente sobre o hero, sólida ao rolar)
+       ============================================================ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h); color: #fff;
+      transition: background .35s, box-shadow .35s, color .35s;
+    }
+    .nav.scrolled {
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 0 var(--line);
+      color: var(--ink);
+    }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+    /* Espaço reservado para o logotipo. Troque SITE.logoUrl para exibir a imagem. */
+    .logo-box {
+      display: grid; place-items: center;
+      width: 170px; height: 46px;
+      font-size: 12px; letter-spacing: .2em; font-weight: 600;
+    }
+    .brand { display: flex; align-items: center; }
+    #logo { display: flex; align-items: center; }
+
+    .logo-stack {
+      position: relative; display: block;
+      width: 223px; height: 40px;
+    }
+    .logo-stack img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: contain;
+      transition: opacity .35s ease;
+    }
+    .logo-scrolled { opacity: 0; }
+
+    /* Ao rolar: some o branco e aparece o azul */
+    .nav.scrolled .logo-top { opacity: 0; }
+    .nav.scrolled .logo-scrolled { opacity: 1; }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; font-size: 16px; font-weight: 600; }
+    .nav-links a { text-decoration: none; position: relative; padding: 6px 0; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+      background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .35s;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .menu-toggle { display: none; width: 44px; height: 44px; position: relative; }
+    .menu-toggle span {
+      position: absolute; left: 10px; right: 10px; height: 2px; background: currentColor;
+      transition: transform .3s, opacity .3s;
+    }
+    .menu-toggle span:nth-child(1) { top: 15px; }
+    .menu-toggle span:nth-child(2) { top: 22px; }
+    .menu-toggle span:nth-child(3) { top: 29px; }
+    .nav.menu-open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+    .nav.menu-open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0;
+        background: #fff; color: var(--ink); padding: 8px 24px 20px;
+        box-shadow: 0 16px 30px -20px rgba(11, 26, 51, .25);
+        display: none;
+      }
+      .nav.menu-open .nav-links { display: flex; }
+      .nav-links li { border-bottom: 1px solid var(--line); }
+      .nav-links a { display: block; padding: 16px 0; }
+      .nav-links a::after { display: none; }
+    }
+
+    /* ============================================================
+       4. HERO: CARROSSEL
+       Para trocar as imagens, edite SITE.hero no bloco <script> (campo "image").
+       ============================================================ */
+    .hero {
+      position: relative; height: 100vh; height: 100svh; min-height: 600px; padding: 0;
+      overflow: hidden; background: var(--primary-dark); color: #fff;
+    }
+    .slide {
+      position: absolute; inset: 0;
+      opacity: 0; transform: translateX(100%);
+      transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity .9s;
+    }
+    .slide.is-active { opacity: 1; transform: none; }
+    .slide.is-prev { opacity: 0; transform: translateX(-100%); }
+
+    .slide-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #2B7FD6 100%);
+      background-size: cover; background-position: center;
+      transform: scale(1.06); transition: transform 6s ease;
+    }
+    .slide.is-active .slide-bg { transform: scale(1); }
+
+    .slide-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(4, 45, 133, .9) 0%, rgba(4, 45, 133, .55) 45%, rgba(4, 45, 133, .1) 100%);
+    }
+
+    /* Bloco de texto: canto esquerdo, sobe com fade-in ao entrar o slide */
+    .caption {
+      position: absolute; left: clamp(24px, 8vw, 120px); bottom: clamp(130px, 22vh, 210px);
+      max-width: 540px; opacity: 0;
+    }
+    .slide.is-active .caption { animation: slideUp .9s cubic-bezier(.2, .7, .2, 1) .35s both; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .caption .eyebrow { color: var(--accent); }
+    .caption h2 { color: #fff; font-size: clamp(32px, 4.4vw, 56px); margin-bottom: 18px; }
+    .caption p { font-size: clamp(16px, 1.6vw, 19px); color: rgba(255, 255, 255, .88); }
+
+    .hero-controls {
+      position: absolute; right: clamp(24px, 8vw, 120px); bottom: 48px; z-index: 5;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .arrow {
+      width: 52px; height: 52px; border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, .5); color: #fff; font-size: 24px; line-height: 1;
+      transition: background .3s, color .3s, border-color .3s;
+    }
+    .arrow:hover { background: #fff; color: var(--primary); border-color: #fff; }
+    .dots { display: flex; gap: 10px; }
+    .dot {
+      width: 10px; height: 10px; border-radius: 999px;
+      background: rgba(255, 255, 255, .45); transition: width .4s, background .4s;
+    }
+    .dot[aria-current="true"] { width: 32px; background: var(--accent); }
+
+    @media (max-width: 900px) {
+      .hero-controls { left: 24px; right: 24px; bottom: 28px; justify-content: space-between; }
+      .caption { bottom: 150px; right: 24px; }
+    }
+
+    /* ============================================================
+       5. QUEM SOMOS
+       ============================================================ */
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items: center; }
+    .about-text p { color: var(--muted); font-size: 18px; margin-top: 18px; }
+    .about-text p:first-of-type { margin-top: 0; }
+    .stats { display: grid; gap: 20px; }
+    .stat { padding: 28px 32px; border-left: 3px solid var(--accent); background: var(--bg-soft); border-radius: var(--radius); }
+    .stat strong { display: block; font-size: 36px; font-weight: 700; color: var(--primary); line-height: 1.1; }
+    .stat span { color: var(--muted); font-size: 16px; }
+    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+    /* ============================================================
+       6. DEPOIMENTOS
+       Para editar, altere SITE.testimonials no bloco <script>.
+       ============================================================ */
+    .testimonials { background: var(--bg-soft); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testi {
+      background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 36px 32px; display: flex; flex-direction: column; gap: 24px;
+    }
+    .testi blockquote { font-size: 18px; color: var(--ink); line-height: 1.7; }
+    .testi-author { margin-top: auto; }
+    .testi-author strong { display: block; font-weight: 600; }
+    .testi-author span { color: var(--muted); font-size: 15px; }
+    @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================================
+       7. ÁREAS DE ATUAÇÃO
+       Desktop: grade de colunas iguais (--cols), mesma distância entre todas.
+       Mobile: uma linha rolável, cards de largura igual, sem quebrar a linha.
+       Para editar, altere SITE.areas no bloco <script>.
+       ============================================================ */
+    .areas-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 1100px) {
+      .areas-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .areas-row { grid-template-columns: 1fr; }
+    }
+    .area-card {
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; gap: 14px; text-align: left;
+      background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 36px 28px; min-height: 280px;
+      transition: transform .35s, box-shadow .35s, border-color .35s;
+    }
+    .area-card::before {
+      content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 100%;
+      background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .45s;
+    }
+    .area-card:hover, .area-card:focus-visible {
+      transform: translateY(-6px);
+      border-color: rgba(6, 67, 194, .3);
+      box-shadow: 0 24px 40px -24px rgba(6, 67, 194, .4);
+    }
+    .area-card:hover::before { transform: scaleX(1); }
+    .area-num { font-size: 14px; font-weight: 600; color: var(--accent); letter-spacing: .1em; }
+    .area-card h3 { font-size: 22px; font-weight: 600; color: var(--primary-dark); line-height: 1.25; }
+    .area-card p { color: var(--muted); font-size: 16px; }
+    .area-card .more { margin-top: auto; padding-top: 12px; color: var(--primary); font-weight: 600; font-size: 15px; }
+
+    /* ============================================================
+       8. CONVERSÃO (CTA + modal de formulário)
+       ============================================================ */
+    .cta {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: #fff; text-align: center;
+    }
+    .cta h2 { color: #fff; max-width: 720px; margin: 0 auto; }
+    .cta p { color: rgba(255, 255, 255, .85); font-size: 18px; max-width: 560px; margin: 18px auto 40px; }
+
+    .modal {
+      position: fixed; inset: 0; z-index: 200;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(11, 26, 51, .6); backdrop-filter: blur(4px); }
+    .modal-card {
+      position: relative; width: 100%; max-width: 520px; max-height: 92vh; overflow: auto;
+      background: #fff; color: var(--ink); border-radius: 18px; padding: 40px;
+      animation: pop .35s cubic-bezier(.2, .7, .2, 1);
+    }
+    @keyframes pop { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: none; } }
+    .modal-close {
+      position: absolute; top: 14px; right: 16px; font-size: 28px; line-height: 1;
+      width: 40px; height: 40px; border-radius: 50%; color: var(--muted);
+    }
+    .modal-close:hover { background: var(--bg-soft); color: var(--ink); }
+    .modal-card h3 { font-size: 26px; font-weight: 600; color: var(--primary-dark); margin-bottom: 8px; }
+    .modal-card > p { color: var(--muted); margin-bottom: 24px; font-size: 16px; }
+
+    .form { display: grid; gap: 16px; }
+    .form label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
+    .form input, .form select, .form textarea {
+      width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
+      font-weight: 400; font-size: 16px; background: #fff; color: var(--ink);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .form input:focus, .form select:focus, .form textarea:focus {
+      outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(6, 67, 194, .12);
+    }
+    .form textarea { resize: vertical; min-height: 96px; }
+    .form .consent { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: 14px; color: var(--muted); }
+    .form .consent input { width: 18px; height: 18px; margin-top: 3px; flex: none; accent-color: var(--primary); }
+    .form .btn { width: 100%; margin-top: 4px; }
+    .form-status { min-height: 24px; font-size: 15px; color: var(--primary); }
+
+    /* ============================================================
+      9. RODAPÉ
+      ============================================================ */
+    .footer { background: var(--primary-dark); color: rgba(255, 255, 255, .8); padding: 72px 0 0; font-size: 15px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; align-items: start; }
+    .footer-brand { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 40px; }
+    .footer h4 { color: #fff; font-size: 13px; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer p + p { margin-top: 6px; }
+    .footer a { text-decoration: none; transition: color .2s; }
+    .footer a:hover { color: var(--accent); }
+    .socials { list-style: none; display: grid; gap: 8px; }
+    .footer-bottom {
+      margin-top: 56px; padding: 24px 0; border-top: 1px solid rgba(255, 255, 255, .12);
+      font-size: 14px; color: rgba(255, 255, 255, .6); text-align: center;
+    }
+
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr; gap: 36px; } }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr; gap: 36px; } }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#inicio" class="brand" aria-label="Início">
+        <!-- O conteúdo é inserido pelo script a partir de SITE.logoUrl -->
+        <span id="logo"></span>
+      </a>
+
+      <nav aria-label="Navegação principal">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#quem-somos">Quem Somos</a></li>
+          <li><a href="#areas">Áreas de Atuação</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         HERO: CARROSSEL DE IMAGENS
+         Os slides são gerados a partir de SITE.hero.
+         ============================================================ -->
+    <section class="hero" id="inicio" aria-roledescription="carrossel" aria-label="Destaques das áreas de atuação">
+      <div id="slides"></div>
+
+      <div class="hero-controls">
+        <button class="arrow" id="prev" aria-label="Slide anterior">&#8249;</button>
+        <div class="dots" id="dots"></div>
+        <button class="arrow" id="next" aria-label="Próximo slide">&#8250;</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         QUEM SOMOS
+         ============================================================ -->
+    <section id="quem-somos">
+      <div class="container about-grid">
+        <div class="about-text">
+          <span class="eyebrow">Quem somos</span>
+          <h2>Soluções jurídicas para um mercado financeiro tecnológico e globalizado</h2>
+          <p id="about-p1"></p>
+          <p id="about-p2"></p>
+        </div>
+        <div class="stats" id="stats"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ÁREAS DE ATUAÇÃO
+         ============================================================ -->
+    <section id="areas">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Áreas de atuação</span>
+          <h2>Soluções jurídicas para cada etapa</h2>
+          <p>Escolha uma área para falar diretamente com um especialista.</p>
+        </div>
+        <div class="areas-row" id="areas-row"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SEÇÃO DE CONVERSÃO
+         ============================================================ -->
+    <section id="contato" class="cta">
+      <div class="container">
+        <span class="eyebrow light">Fale com a gente</span>
+        <h2>Sua questão jurídica merece atenção especializada</h2>
+        <p>Conte o seu caso em poucas linhas. Um especialista retornará o contato em breve.</p>
+        <button class="btn btn-light btn-lg" id="open-modal" type="button" aria-haspopup="dialog">
+          Falar com Especialista
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       MODAL DO FORMULÁRIO DE LEADS
+       ============================================================ -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" type="button" data-close aria-label="Fechar">&times;</button>
+      <h3 id="modal-title">Falar com especialista</h3>
+      <p>Preencha os dados abaixo. Retornaremos pelo canal de sua preferência.</p>
+
+      <form class="form" id="lead-form">
+        <label>Nome
+          <input name="name" required autocomplete="name">
+        </label>
+        <label>E-mail
+          <input type="email" name="email" required autocomplete="email">
+        </label>
+        <label>Telefone / WhatsApp
+          <input type="tel" name="phone" autocomplete="tel">
+        </label>
+        <label>Área de interesse
+          <select name="area" id="area-select"></select>
+        </label>
+        <label>Mensagem
+          <textarea name="message" rows="4"></textarea>
+        </label>
+        <label class="consent">
+          <input type="checkbox" name="consent" required>
+          Autorizo o tratamento dos meus dados pessoais para contato, conforme a LGPD.
+        </label>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       RODAPÉ
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-brand" id="f-name"></p>
+      <div class="footer-grid">
+        <div>
+          <h4>Endereço</h4>
+          <p id="f-address"></p>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <p><a href="#" id="f-email"></a></p>
+          <p><a href="#" id="f-phone"></a></p>
+        </div>
+        <div>
+          <h4>Redes sociais</h4>
+          <ul class="socials" id="f-socials"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      &copy; <span id="year"></span> Maimone &amp; Associados. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================================
+       CONFIGURAÇÃO DO CONTEÚDO
+       Edite somente este objeto para trocar imagens e textos.
+       ============================================================ */
+    const SITE = {
+      firmName: "Maimone & Associados",
+
+      // LOGOTIPO: cole a URL da imagem (ex.: "assets/logo.png"). Vazio = placeholder "LOGO".
+      logoUrl: "/assets/logo-branco-e-azul-bebe-com-fundo-transparente.png",
+      logoScrolledUrl: "/assets/logo-azul-e-azul-bebe-com-fundo-transparente.png",
+      footerLogoUrl: "/assets/logo-ma-fundo-transparente.png",
+
+      // HERO: image = URL da imagem do slide (ex.: "assets/hero-1.jpg"). Vazio = gradiente da marca.
+      heroInterval: 6500,
+      hero: [
+        {
+          image: "",
+          eyebrow: "Regulatório de Web3 e Criptoativos",
+          title: "Compliance de regras do Banco Central e entidades reguladas",
+          text: "Smart contracts com regulação nas linhas de código e na arquitetura tecnológica."
+        },
+        {
+          image: "",
+          eyebrow: "Direito Societário",
+          title: "Segurança jurídica para o crescimento do seu negócio",
+          text: "Estruturação societária, oferta de valores mobiliários e governança para empresas que planejam o futuro com clareza."
+        },
+        {
+          image: "",
+          eyebrow: "Planejamento Patrimonial",
+          title: "Como deixar seu patrimônio blindado com visão estratégica",
+          text: "Análise de operações, teses e riscos para decisões mais seguras e previsíveis internacionalmente."
+        }
+      ],
+
+      // QUEM SOMOS: substitua pelo texto real do escritório.
+      about: {
+        //p1: "Combinamos a excelência da prática jurídica com soluções de T.I.",
+        p2: "Combinamos a excelência da prática jurídica com soluções de T.I., o que nos permite mapear dados de mercado e elaborar uma engenharia financeira antecipando impactos regulatórios no ecossistema de inovação e tecnologia."
+      },
+
+      // ÁREAS DE ATUAÇÃO: cada item vira um card. Adicione ou remova itens; o grid se ajusta.
+      areas: [
+        { title: "Regulatório de Web3", description: "Consultoria, diagnóstico e engenharia relacionados a regulação dentro da infraestrutura tecnológica." },
+        { title: "Empresarial e Societário", description: "Constituição, reorganização societária, acordos de sócios e governança corporativa." },
+        { title: "Planejamento Patrimonial", description: "Classificação de riscos para o patrimônio da empresa e da família através do perfil do cliente." },
+        { title: "Direito Digital e Inteligência Artificial", description: "Estruturação de processos e decisões no negócio com segurança cibernética no armazenamento de dados." },
+        { title: "Agronegócio e Produção Rural", description: "Contratos rurais, crédito agrário, regularização de propriedades e operações do agronegócio." },
+        { title: "Direito Bancário e Operações Cross-Border", description: "Contratos bancários, câmbio e remessas ao exterior e crédito em operações transfronteiriças." },
+        { title: "Games e Propriedade Intelectual", description: "Construção, registro, comercialização e monetização de games e sua relação com a comunidade de jogadores." },
+        { title: "Direito Imobiliário, Posse e Propriedade", description: "Assessoria jurídica em todo o ciclo do imóvel, urbano e rural, da aquisição e regularização da propriedade à incorporação, ao financiamento, à locação e à solução de conflitos." }
+      ],
+
+      // CONTATO (rodapé). Substitua pelos dados reais.
+      contact: {
+        address: "Avenida Rio Branco, nº 251, 10º andar, sl 1001 a 1003, Centro, Rio de Janeiro/RJ, CEP: 20040-009",
+        email: "adv@macryptolaw.com",
+        phone: "+55 (21) 97903-3952",
+        socials: [
+          { name: "LinkedIn do Escritório", url: "https://www.linkedin.com/company/maimone-associados" },
+          { name: "LinkedIn do Sócio Fundador", url: "https://www.linkedin.com/in/yurimaimone-sm" }
+        ]
+      },
+
+      // FORMULÁRIO: URL do seu backend/CRM (POST em JSON). Vazio = somente demonstração.
+      leadEndpoint: ""
+    };
+
+    /* ============================================================
+       UTILITÁRIOS
+       ============================================================ */
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ============================================================
+       RENDERIZAÇÃO
+       ============================================================ */
+    function renderBrand() {
+      const logo = $("#logo");
+      logo.innerHTML = SITE.logoUrl
+        ? `<span class="logo-stack">
+            <img class="logo-top" src="${SITE.logoUrl}" alt="${SITE.firmName}">
+            <img class="logo-scrolled" src="${SITE.logoScrolledUrl || SITE.logoUrl}" alt="">
+          </span>`
+        : `<span class="logo-box"><img src="./assets/logo-branco-e-azul-bebe-com-fundo-transparente.png"></span>`;
+    }
+
+    function renderAbout() {
+      $("#about-p1").textContent = SITE.about.p1;
+      $("#about-p2").textContent = SITE.about.p2;
+      const stats = SITE.stats || [];
+      $("#stats").innerHTML = stats
+        .map(s => `<div class="stat"><strong>${s.value}</strong><span>${s.label}</span></div>`)
+        .join("");
+    }
+
+    function renderHero() {
+      const container = $("#slides");
+      const dots = $("#dots");
+
+      SITE.hero.forEach((s, i) => {
+        const slide = document.createElement("article");
+        slide.className = "slide";
+        slide.setAttribute("aria-hidden", "true");
+        slide.innerHTML = `
+          <div class="slide-bg" style="${s.image ? `background-image:url('${s.image}')` : ""}"></div>
+          <div class="slide-overlay"></div>
+          <div class="caption">
+            <span class="eyebrow">${s.eyebrow}</span>
+            <h2>${s.title}</h2>
+            <p>${s.text}</p>
+          </div>`;
+        container.appendChild(slide);
+
+        const dot = document.createElement("button");
+        dot.className = "dot";
+        dot.type = "button";
+        dot.setAttribute("aria-label", `Ir para o slide ${i + 1}`);
+        dot.addEventListener("click", () => goTo(i));
+        dots.appendChild(dot);
+      });
+    }
+
+    function renderAreas() {
+      const row = $("#areas-row");
+      row.style.setProperty("--cols", SITE.areas.length);
+      row.innerHTML = SITE.areas
+        .map((a, i) => `
+          <button class="area-card" type="button" data-index="${i}">
+            <span class="area-num">${String(i + 1).padStart(2, "0")}</span>
+            <h3>${a.title}</h3>
+            <p>${a.description}</p>
+            <span class="more">Saiba mais &rarr;</span>
+          </button>`)
+        .join("");
+
+      row.addEventListener("click", e => {
+        const card = e.target.closest(".area-card");
+        if (card) window.location.href = `area.html?area=${card.dataset.index}`;
+      });
+    }
+
+    function renderModalOptions() {
+      const select = $("#area-select");
+      select.innerHTML = `<option value="">Selecione uma área</option>` +
+        SITE.areas.map(a => `<option value="${a.title}">${a.title}</option>`).join("");
+    }
+
+    function renderFooter() {
+      $("#f-name").textContent = SITE.firmName;
+      $("#f-address").textContent = SITE.contact.address;
+      $("#f-email").textContent = SITE.contact.email;
+      $("#f-email").href = `mailto:${SITE.contact.email}`;
+      $("#f-phone").textContent = SITE.contact.phone;
+      $("#f-phone").href = `tel:${SITE.contact.phone.replace(/\D/g, "")}`;
+      $("#f-socials").innerHTML = SITE.contact.socials
+        .map(s => `<li><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.name}</a></li>`)
+        .join("");
+      $("#year").textContent = new Date().getFullYear();
+    }
+
+    /* ============================================================
+       CARROSSEL
+       ============================================================ */
+    const hero = { index: 0, timer: null };
+
+    function slides() { return document.querySelectorAll(".slide"); }
+    function dotEls() { return document.querySelectorAll(".dot"); }
+
+    function goTo(i) {
+      const list = slides();
+      const n = list.length;
+      const target = (i + n) % n;
+
+      list.forEach((el, idx) => {
+        el.classList.toggle("is-active", idx === target);
+        el.classList.toggle("is-prev", idx < target);   // saem pela esquerda
+        el.setAttribute("aria-hidden", idx !== target);
+      });
+      dotEls().forEach((d, idx) => d.setAttribute("aria-current", idx === target));
+      hero.index = target;
+    }
+
+    function startAuto() {
+      if (reduceMotion) return;
+      stopAuto();
+      hero.timer = setInterval(() => goTo(hero.index + 1), SITE.heroInterval);
+    }
+    function stopAuto() { clearInterval(hero.timer); }
+
+    function initHero() {
+      $("#next").addEventListener("click", () => { goTo(hero.index + 1); startAuto(); });
+      $("#prev").addEventListener("click", () => { goTo(hero.index - 1); startAuto(); });
+
+      const heroEl = $("#inicio");
+      heroEl.addEventListener("mouseenter", stopAuto);
+      heroEl.addEventListener("mouseleave", startAuto);
+
+      // Deslize com o dedo em celulares
+      let startX = 0;
+      heroEl.addEventListener("touchstart", e => { startX = e.touches[0].clientX; }, { passive: true });
+      heroEl.addEventListener("touchend", e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 50) { goTo(hero.index + (dx < 0 ? 1 : -1)); startAuto(); }
+      });
+
+      goTo(0);
+      startAuto();
+    }
+
+    /* ============================================================
+       NAVBAR: sólida ao rolar e menu mobile
+       ============================================================ */
+    function initNav() {
+      const nav = $("#nav");
+      const toggle = $("#menu-toggle");
+
+      const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 24);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      toggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("menu-open");
+        toggle.setAttribute("aria-expanded", open);
+        toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+      });
+
+      // Smooth scroll para todas as âncoras, fechando o menu mobile
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener("click", e => {
+          const id = link.getAttribute("href");
+          if (id === "#") return;
+          const target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          nav.classList.remove("menu-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    /* ============================================================
+       MODAL DE CONVERSÃO
+       ============================================================ */
+    let lastFocus = null;
+
+    function openModal(area = "", trigger = null) {
+      lastFocus = trigger || document.activeElement;
+      const modal = $("#modal");
+      if (area) $("#area-select").value = area;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => $("#lead-form [name=name]").focus(), 50);
+    }
+
+    function closeModal() {
+      const modal = $("#modal");
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastFocus) lastFocus.focus();
+    }
+
+    function initModal() {
+      $("#open-modal").addEventListener("click", e => openModal("", e.currentTarget));
+
+      $("#modal").addEventListener("click", e => {
+        if (e.target.hasAttribute("data-close")) closeModal();
+      });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && $("#modal").classList.contains("open")) closeModal();
+      });
+
+      $("#lead-form").addEventListener("submit", async e => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const status = $("#form-status");
+
+        if (!form.reportValidity()) return;
+
+        const data = Object.fromEntries(new FormData(form));
+        status.textContent = "Enviando...";
+
+        try {
+          if (SITE.leadEndpoint) {
+            const res = await fetch(SITE.leadEndpoint, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error(res.statusText);
+          } else {
+            // Demonstração: remove quando SITE.leadEndpoint estiver configurado
+            await new Promise(r => setTimeout(r, 600));
+          }
+          form.reset();
+          status.textContent = "Recebemos sua mensagem. Um especialista entrará em contato em breve.";
+        } catch {
+          status.textContent = "Não foi possível enviar agora. Tente novamente em instantes.";
+        }
+      });
+    }
+
+    /* ============================================================
+       INICIALIZAÇÃO
+       ============================================================ */
+    document.addEventListener("DOMContentLoaded", () => {
+      renderBrand();
+      renderAbout();
+      renderHero();
+      renderAreas();
+      renderModalOptions();
+      renderFooter();
+
+      initHero();
+      initNav();
+      initModal();
+    });
+  </script>
+</body>
+</html>
